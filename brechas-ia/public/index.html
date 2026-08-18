@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Simulador de Cierre de Brechas · UMC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero__eyebrow">Universidad Corporativa Claro · Simulador</div>
+  <h1 class="hero__title">Cerrar una brecha<br /><span>es acortar una distancia.</span></h1>
+  <p class="hero__lede">
+    Registra a una persona en formación, evalúa su respuesta a un caso real con
+    inteligencia artificial, y observa cómo se acorta la distancia entre lo que
+    sabía <em>antes</em> y lo que demuestra <em>después</em>.
+  </p>
+  <button id="btn-cargar-demo" class="btn btn--link">Cargar datos de ejemplo (para probar rápido)</button>
+</header>
+
+<main class="layout">
+
+  <!-- ============ SECCIÓN 1: REGISTRO ============ -->
+  <section class="panel" id="panel-registro">
+    <div class="panel__head">
+      <span class="panel__index">01</span>
+      <div>
+        <h2>Registro</h2>
+        <p class="panel__hint">Persona en formación y las competencias que debe demostrar.</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="input-nombre">Nombre de la persona</label>
+      <input type="text" id="input-nombre" placeholder="Ej. Laura Gómez" />
+    </div>
+
+    <div id="lista-competencias" class="competencias-lista"></div>
+
+    <form id="form-nueva-competencia" class="competencia-form">
+      <div class="field">
+        <label for="input-competencia">Nueva competencia</label>
+        <div class="field-con-boton">
+          <input type="text" id="input-competencia" placeholder="Ej. Manejo de objeciones" required />
+          <button type="button" id="btn-generar-caso" class="btn btn--ia">✨ Generar con IA</button>
+        </div>
+        <p class="field__ayuda">Escribe el nombre y deja que la IA proponga el comportamiento esperado y el caso.</p>
+      </div>
+      <div class="field">
+        <label for="input-comportamiento">Comportamiento esperado (para que la IA sepa qué buscar)</label>
+        <textarea id="input-comportamiento" rows="2" placeholder="Ej. Reconoce la objeción sin ponerse a la defensiva, indaga la causa real detrás del precio, y ofrece una alternativa de valor antes de ceder en descuento." required></textarea>
+      </div>
+      <div class="field">
+        <label for="input-pregunta">Pregunta / caso a evaluar</label>
+        <textarea id="input-pregunta" rows="2" placeholder="Ej. Un cliente te dice 'esto está muy caro, en la competencia lo consigo más barato'. ¿Qué le dices?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn--ghost">+ Agregar competencia</button>
+    </form>
+  </section>
+
+  <!-- ============ SECCIÓN 2: EVALUACIÓN ============ -->
+  <section class="panel" id="panel-evaluacion">
+    <div class="panel__head">
+      <span class="panel__index">02</span>
+      <div>
+        <h2>Evaluación</h2>
+        <p class="panel__hint">Responde el caso como si fueras la persona en formación. La IA califica.</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="select-competencia">Competencia a evaluar</label>
+      <select id="select-competencia"></select>
+    </div>
+
+    <div id="caso-actual" class="caso-box"></div>
+
+    <div class="field">
+      <label for="input-respuesta">Respuesta de la persona en formación</label>
+      <textarea id="input-respuesta" rows="5" placeholder="Escribe aquí la respuesta al caso..."></textarea>
+    </div>
+
+    <button id="btn-evaluar" class="btn btn--primary">Evaluar con IA</button>
+
+    <div id="resultado-evaluacion" class="resultado" hidden></div>
+  </section>
+
+  <!-- ============ SECCIÓN 3: TABLERO ============ -->
+  <section class="panel panel--wide" id="panel-tablero">
+    <div class="panel__head">
+      <span class="panel__index">03</span>
+      <div>
+        <h2>Tablero de cierre de brechas</h2>
+        <p class="panel__hint">Antes vs. después, competencia por competencia.</p>
+      </div>
+    </div>
+
+    <div id="resumen-ejecutivo" class="resumen-ejecutivo" hidden></div>
+    <button id="btn-generar-resumen" class="btn btn--ia btn--ia-wide">✨ Generar resumen ejecutivo con IA</button>
+
+    <div id="tablero" class="tablero"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Prototipo académico · Assessment Center Practicante Desarrollador Web con IA · UMC Claro / Overlap Colombia
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
